@@ -1,0 +1,1 @@
+appcfg.py update --oauth2 C:\Dropbox\Projects\Instaghent\www

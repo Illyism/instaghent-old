@@ -1,0 +1,45 @@
+
+{% extends 'templates/base.html' %}
+{% block title %}{{i18n.tagline}} | Instaghent{% endblock %}
+{% block outercontent %}
+	<div id="map">
+		
+	</div>
+{% endblock %}
+{% block contentclass %} class="maps"{% endblock %}
+{% block content %}
+	<div id="description" class="maps">
+		<h1><a href="/">{{i18n.title}}</a></h1>
+		<p>{{i18n.short}}</p>
+
+		<p class="sort">{{i18n.sorting.sort}}</p>
+		<ul id="sort">
+			<li><a href="/filter/comments" title="{{i18n.sorting.sort}} {{i18n.sorting.popularity}}">{{i18n.sorting.popularity}}</a></li>
+			<li><a href="/" title="{{i18n.sorting.sort}} {{i18n.sorting.ghent}}">{{i18n.sorting.ghent}}</a></li>
+			<li><a href="/filter/likes" title="{{i18n.sorting.sort}} {{i18n.sorting.likes}}">{{i18n.sorting.likes}}</a></li>
+			<li><a href="/map" title="{{i18n.sorting.sort}} {{i18n.sorting.location}}">{{i18n.sorting.location}}</a></li>
+			<li><a href="/filter/time" title="{{i18n.sorting.sort}} {{i18n.sorting.newest}}">{{i18n.sorting.newest}}</a></li>
+		</ul>
+
+		<p class="footer"><a href="/about" title="{{i18n.about}}">{{i18n.about}} {{i18n.title}}</a></p>
+	</div>
+	<div id="pics" class="maps">
+		{% for photo in photos %}
+		<div class="shot" data-filter="{{photo.filters}}" data-timestamp="{{photo.time}}" data-id="{{photo.ID}}" data-location="{{photo.location}}">
+			<img src="{{ photo.thumb }}" alt="{{photo.author}}" title="{{ photo.author }}" />
+			{% if photo.caption %}
+				<div class="caption">
+					<b>{{ photo.caption }}</b>
+				</div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript"
+  src="http://maps.google.com/maps/api/js?libraries=adsense&sensor=true"></script>
+<script type="text/javascript" src="/js/geocode.js"></script>
+<script type="text/javascript" src="/js/map.js"></script>
+{% endblock %}

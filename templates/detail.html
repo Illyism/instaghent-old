@@ -1,0 +1,281 @@
+
+{% extends 'templates/base.html' %}
+{% block title %}{{title}}Instaghent | {{i18n.tagline}} | {{i18n.sorting[sortingMethod]}} {% endblock %}
+{% block description %}{{i18n.metashort}} - {{i18n.motto}}{% endblock %}
+{% block outercontent %}
+	<div id="description" class="sticky clearfix fixed">
+		<div class="clearfix navbar">
+			<ul id="sort" class="clearfix">
+				<li class="logo"><a class="logo" href="/">{{i18n.title}}</a></li>
+				{% if sortingMethod == "author" %}
+				<li class="active"><a href="/by/{{author}}" title="{{i18n.sorting.author}}">{{author}}</a></li>
+				{% endif %}
+				<li {% if sortingMethod == 'tag' %}class="active"{% endif %}><a href="/gf13" title="Gentse Feesten 2013">#GF13</a></li>
+				<li {% if sortingMethod == 'time' %}class="active"{% endif %}><a href="/filter/time" title="{{i18n.sorting.sort}} {{i18n.sorting.time}}">{{i18n.sorting.time}}</a></li>
+				<li {% if sortingMethod == 'ghents' %}class="active"{% endif %}><a href="/filter/ghents" title="{{i18n.sorting.sort}} {{i18n.sorting.ghents}}">{{i18n.sorting.ghents}}</a></li>
+				<li {% if sortingMethod == 'comments' %}class="active"{% endif %}><a href="/filter/comments" title="{{i18n.sorting.sort}} {{i18n.sorting.comments}}">{{i18n.sorting.comments}}</a></li>
+				<li {% if sortingMethod == 'likes' %}class="active"{% endif %}><a href="/filter/likes" title="{{i18n.sorting.sort}} {{i18n.sorting.likes}}">{{i18n.sorting.likes}}</a></li>
+				<li><a href="/about" title="{{i18n.about}}">{{i18n.about}} {{i18n.title}}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+{% block contentclass %}class="clearfix"{% endblock %}
+{% block content %}
+	<div id="pic" class="contain">
+		<div class="left-container">
+			<div class="box">
+				<img width="100%" src="{{photo.standard}}" alt="instagram {{i18n.ghent}} | {{photo.author}}"/>
+			</div>
+			{% if photo.location != "None" %}
+			<div class="box">
+				<h3 class="title location"><i class="icon fade" title="{{i18n.area}}"><i class="fadeto">&#xf07C;</i> <i class="fadefrom">&#xf07B;</i></i> <span class="fadespace" id="lLocation">{{i18n.ghent}}, {{i18n.belgium}}</span></h3>
+				<div id="area" class="museum clearfix">
+					<div id="map" class="clearfix">
+					</div>
+				</div>
+				<div id="mLocation">{{photo.location}}</div>
+			</div>
+
+			{% endif %}
+			<div class="box">
+				    <div id="disqus_thread"></div>
+				    <script type="text/javascript">
+				        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				        var disqus_shortname = 'instaghent'; // required: replace example with your forum shortname
+
+				        /* * * DON'T EDIT BELOW THIS LINE * * */
+				        (function() {
+				            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				        })();
+				    </script>				    
+			</div>
+		</div>
+		<div class="right-container">
+			{% if photo.caption %}
+			<div class="box">
+				<h3 class="title location"><i class="icon fade" title="{{i18n.caption}}"><i class="fadeto">&#xf004;</i> <i class="fadefrom">&#xf001;</i></i> <span class="fadespace">{{i18n.caption}}</span></h3>
+				<p class="caption">
+					{{ photo.caption }}
+				</p>
+			</div>
+			{% endif %}
+
+			<div class="box">
+				<h3 class="title"><i class="icon fade" title="{{i18n.sorting.author}}"><i class="fadeto">&#xf047;</i> <i class="fadefrom">&#xf048;</i></i> <span class="fadespace">{{photo.author}}</span></h3>
+				<img width="100%" class="profile" src="{{photo.profile_picture}}" alt="{{photo.author}}" />
+				<hr/>
+				<a target="_blank" href="/by/{{photo.author}}">{{i18n.moreby}} {{photo.author}}</a>
+				<hr/>
+				<a target="_blank" href="http://instagram.com/{{photo.author}}">{{i18n.instalink}}</a>
+			</div>
+
+			<div class="rating box">
+				<h3 class="title"><i class="icon fade" title="{{i18n.ghentmeter}}"><i class="fadeto">&#xf050;</i> <i class="fadefrom">&#xf051;</i></i> <super class="fadespace" id="ghent-meter">{{ghentmeter}}</super></h3>
+				<a class="upghent" data-id="{{photo.ID}}">{{i18n.upvote}}</a>
+				<a class="downghent" data-id="{{photo.ID}}">{{i18n.downvote}}</a>
+			</div>
+
+			{% if photo.location != "None" %}
+			<div class="box">
+				<h3 class="title panorama"><i class="icon fade" title="{{i18n.area}}"><i class="fadeto">&#xf160;</i> <i class="fadefrom">&#xf15E;</i></i> <span class="fadespace">{{i18n.ghent}}, {{i18n.belgium}}</span></h3>
+				<div id="pano"></div>
+			</div>
+			{% endif %}
+
+			<div class="box">
+				<h3 class="title"><i class="icon fade" title="{{i18n.details}}"><i class="fadeto">&#xf0C7;</i> <i class="fadefrom">&#xf0C6;</i></i> <span class="fadespace">{{i18n.details}}</span></h3>
+				<i class="icon" title="{{i18n.filters}}">&#xf040;</i>   {{photo.filters}}
+				<hr/>
+				<i class="icon" title="{{i18n.likes}}">&#xf049;</i>   {{photo.likes}} {{i18n.likes}}
+				<hr/>
+				<i class="icon" title="{{i18n.comments}}">&#xf081;</i>   {{photo.comments}} {{i18n.comments}}
+				<hr/>
+				<i class="icon" title="{{i18n.tags}}">&#xf0AB;</i>   <span class="taglist">{% for tag in tags %}{{tag}}{% if not loop.last %} • {% endif %}{% endfor %}</span>
+				<hr/>
+				<i class="icon" title="{{i18n.time}}">&#xf167;</i>  {{photo.time}}
+				<hr/>
+				<a target="_blank" href="{{photo.link}}"><i class="icon" title="{{i18n.time}}">&#xf143;</i> {{i18n.instalink}}</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		var instaghent = {
+			sortingMethod: "{{sortingMethod}}",
+			{% if sortingMethod == "author" %}
+			author: "{{author}}"
+			{% endif %}
+		}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=adsense&v=3.exp&sensor=true&language={{i18n.lang}}"></script>
+	<script>
+		var style = [{
+      "stylers": [{
+          "visibility": "on"
+      }]
+		  }, {
+		      "featureType": "road",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#ffffff"
+		      }]
+		  }, {
+		      "featureType": "road.arterial",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#fee379"
+		      }]
+		  }, {
+		      "featureType": "road.highway",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#fee379"
+		      }]
+		  }, {
+		      "featureType": "landscape",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#f3f4f4"
+		      }]
+		  }, {
+		      "featureType": "water",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#7fc8ed"
+		      }]
+		  }, {}, {
+		      "featureType": "road",
+		          "elementType": "labels",
+		          "stylers": [{
+		          "visibility": "on"
+		      }]
+		  }, {
+		      "featureType": "poi.park",
+		          "elementType": "geometry.fill",
+		          "stylers": [{
+		          "visibility": "on"
+		      }, {
+		          "color": "#83cead"
+		      }]
+		  }, {
+		      "elementType": "labels",
+		          "stylers": [{
+		          "visibility": "on"
+		      }]
+		  }, {
+		      "featureType": "landscape.man_made",
+		          "elementType": "geometry",
+		          "stylers": [{
+		          "weight": 0.9
+		      }, {
+		          "visibility": "off"
+		      }]
+		  }]
+
+
+
+		  var adUnit;
+
+		/** Google Maps **/
+
+		var map;
+		var geocoder;
+		var panoLoc;
+		var triangleCoords;
+		if (document.getElementById('mLocation')) {
+			var mloc = document.getElementById('mLocation').innerHTML.split(",");
+
+			function initMap() {
+			  google.maps.visualRefresh = true;
+			  var latlng = new google.maps.LatLng(mloc[0], mloc[1]); 
+			  var bermudaTriangle;
+
+			  geocoder = new google.maps.Geocoder();
+			  map = new google.maps.Map(document.getElementById("map"), {
+			    zoom: 15,
+			    mapTypeId: google.maps.MapTypeId.ROADMAP,
+			    center: latlng,
+			    styles: style
+			  });
+
+			  codeAddress();
+
+
+			  var adUnitDiv = document.createElement('div');
+			  var adUnitOptions = {
+			    format: google.maps.adsense.AdFormat.SMALL_HORIZONTAL_LINK_UNIT,
+			    position: google.maps.ControlPosition.TOP_LEFT,
+			    backgroundColor: '#f5f5f5',
+			    borderColor: '#cccccc',
+			    titleColor: '#1155cc',
+			    textColor: '#333333',
+			    urlColor: '#009900',
+			    publisherId: 'pub-6764048818712194',
+			    map: map,
+			    visible: true
+			  };
+			  var adUnit = new google.maps.adsense.AdUnit(adUnitDiv, adUnitOptions);
+			}
+
+
+			$("<script/>", {"src":'http://api.instagram.com/v1/locations/search?lat='+mloc[0]+'&lng='+mloc[1]+'&client_id=a5a67115f0fc45d6b97d318ac915aa91&client_secret=76458a657e8c4317a32ebb9b8b224219&callback=instaLocation'}).appendTo("body");
+
+			function codeAddress() {
+			  var address = document.getElementById('mLocation').innerHTML;
+			  geocoder.geocode( { 'address': address}, function(results, status) {
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      map.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			          map: map,
+			          position: results[0].geometry.location
+			      });
+			      panoLoc = results[0].geometry.location;
+
+			      var panoramaOptions = {
+					    position: panoLoc,
+					    pov: {
+					      heading: 34,
+					      pitch: 10
+				    	}
+				    }
+				    var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'),panoramaOptions);
+  					map.setStreetView(panorama);
+			    } else {
+			      console.error('Geocode was not successful for the following reason: ' + status);
+			    }
+			  });
+			}
+		
+			google.maps.event.addDomListener(window, 'load', initMap);
+		}	
+		function instaLocation(data) {
+			if (data.data) {
+				if (data.data[0]) $("#lLocation").text(data.data[0].name);
+				var triangleCoords = [];
+				for (var i=0; i<data.data.length;i++) {
+					triangleCoords[triangleCoords.length] = new google.maps.LatLng(data.data[i].latitude, data.data[i].longitude);
+				    var myLatLng = triangleCoords[triangleCoords.length-1];
+				    var marker = new google.maps.Marker({
+				        position: myLatLng,
+				        map: map,
+				        title: data.data[i].name,
+				        zIndex: i+1
+				    });
+				}
+			}
+		}
+
+	</script>
+	<script src="/js/instamin.js"></script>
+{% endblock %}
+

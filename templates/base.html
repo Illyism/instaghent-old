@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="{{i18n.lang}}">
+	<head>
+		<link rel="dns-prefetch" href="//fonts.googleapis.com">
+		<link rel="dns-prefetch" href="//code.jquery.com">
+		<link rel="dns-prefetch" href="//1-ps.googleusercontent.com">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{% block title %}Instaghent{% endblock %}</title>
+		<meta name="author" content="Ilias Ismanalijev - illyism.com" />
+		<meta name="description" content="{% block description %}{{i18n.metashort}}{% endblock %}" />
+		<meta name="keywords" content="instagram, gent, ghent, instaghent" />
+		<!--[if lt IE 9]>
+	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	    <![endif]-->
+	    <!--[if lt IE 9]>
+	        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	    <![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link type="text/css" rel="stylesheet" href="/css/style.m.css" />
+		<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css' />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		{% block head %}{% endblock %}
+	</head>
+
+	<body>
+		{% block outercontent %}{% endblock %}
+		<div id="content" {% block contentclass %} {% endblock %}>
+			{% block content %}{% endblock %}
+		</div>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-38201998-1']);
+		  _gaq.push(['_setDomainName', 'instaghent.com']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+		{% block javascript %}
+		
+		{% endblock %}
+	</body>
+</html>

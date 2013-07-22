@@ -1,0 +1,51 @@
+
+{% extends 'templates/base.html' %}
+{% block title %}{{title}}Instaghent | {{i18n.tagline}} | {{i18n.sorting[sortingMethod]}} {% endblock %}
+{% block description %}{{i18n.metashort}} - {{i18n.motto}}{% endblock %}
+{% block outercontent %}
+	<div id="description" class="sticky fixed">
+		<div class="clearfix navbar">
+			<ul id="sort" class="clearfix">
+				<li class="logo"><a class="logo" href="/">{{i18n.title}}</a></li>
+				{% if sortingMethod == "author" %}
+				<li class="active"><a href="/by/{{author}}" title="{{i18n.sorting.author}}">{{author}}</a></li>
+				{% endif %}
+				<li {% if sortingMethod == 'tag' %}class="active"{% endif %}><a href="/gf13" title="Gentse Feesten 2013">#GF13</a></li>
+				<li {% if sortingMethod == 'time' %}class="active"{% endif %}><a href="/filter/time" title="{{i18n.sorting.sort}} {{i18n.sorting.time}}">{{i18n.sorting.time}}</a></li>
+				<li {% if sortingMethod == 'ghents' %}class="active"{% endif %}><a href="/filter/ghents" title="{{i18n.sorting.sort}} {{i18n.sorting.ghents}}">{{i18n.sorting.ghents}}</a></li>
+				<li {% if sortingMethod == 'comments' %}class="active"{% endif %}><a href="/filter/comments" title="{{i18n.sorting.sort}} {{i18n.sorting.comments}}">{{i18n.sorting.comments}}</a></li>
+				<li {% if sortingMethod == 'likes' %}class="active"{% endif %}><a href="/filter/likes" title="{{i18n.sorting.sort}} {{i18n.sorting.likes}}">{{i18n.sorting.likes}}</a></li>
+				<li><a href="/about" title="{{i18n.about}}">{{i18n.about}} {{i18n.title}}</a></li>
+			</ul>
+			<a href="#" id="pull">Menu</a>  
+		</div>
+	</div>
+{% endblock %}
+{% block content %}
+	<div id="pics" class="{{sortingMethod}}">
+		<div id="picstest"></div>
+
+		<div class="picrow init" style="width: 100%; height: auto;">
+			{% for photo in photos %}<a href="/by/{{photo.author}}/{{photo.ID}}"><img class="lol photo" src="{{photo.standard}}" style="width: 308px; height: 307px; margin: 5px;" title="@{{photo.author}}"></a>{% endfor %}
+		</div>
+        <div class="picrow"></div>
+        <div class="picrow"></div>
+        <div class="picrow"></div>
+        <div class="picrow"></div>
+        <div class="picrow"></div>
+        <div class="picrow"></div>
+       
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		var instaghent = {
+			sortingMethod: "{{sortingMethod}}"{% if sortingMethod == "author" %},
+			author: "{{author}}"
+			{% endif %}
+		}
+	</script>
+	<script src="/js/instamin.js"></script>
+{% endblock %}
+

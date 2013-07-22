@@ -1,0 +1,67 @@
+
+{% extends 'templates/base.html' %}
+{% block title %}Instaghent | {{i18n.tagline}} | {{i18n.sorting[sortingMethod]}} {% endblock %}
+{% block description %}{{i18n.metashort}} - {{i18n.motto}}{% endblock %}
+{% block outercontent %}
+	<div id="description" class="sticky">
+		<h1 id="top"><a class="logo" href="/">{{i18n.title}}</a></h1>
+		<p>{{i18n.short}}</p>
+
+		<p class="sort">{{i18n.sorting.sort}}</p>
+		<ul id="sort">
+			<li {% if sortingMethod == 'time' %}class="active"{% endif %}><a href="/filter/time" title="{{i18n.sorting.sort}} {{i18n.sorting.time}}">{{i18n.sorting.time}}</a></li>
+			<li {% if sortingMethod == 'ghents' %}class="active"{% endif %}><a href="/filter/ghents" title="{{i18n.sorting.sort}} {{i18n.sorting.ghents}}">{{i18n.sorting.ghents}}</a></li>
+			<li {% if sortingMethod == 'comments' %}class="active"{% endif %}><a href="/filter/comments" title="{{i18n.sorting.sort}} {{i18n.sorting.comments}}">{{i18n.sorting.comments}}</a></li>
+			<li {% if sortingMethod == 'likes' %}class="active"{% endif %}><a href="/filter/likes" title="{{i18n.sorting.sort}} {{i18n.sorting.likes}}">{{i18n.sorting.likes}}</a></li>
+		</ul>
+
+		<div class="footer">
+			<a href="/about" title="{{i18n.about}}">{{i18n.about}} {{i18n.title}}</a> ▢ 
+			<a href="http://illyism.com" title="Ilias Ismanalijev">@Illyism</a>
+		</div>
+		<a class="top" href="#top">↑</a>
+	</div>
+{% endblock %}
+{% block content %}
+	<ul id="pics" class="{{sortingMethod}}">
+		{% for photo in photos %}
+		<li>
+			<div class="shot-item" id="{{photo.ID}}">
+				<div class="shot-info-wrap">
+					<div class="shot-image" style="background-image:url({{ photo.standard }});" >
+						</div>
+					<div class="shot-info">
+						<div class="shot-info-back">
+							<div class="ghent-votes">{{photo.ghents}}</div>
+							<h3><a target="_blank" href="http://instagram.com/{{photo.author}}">{{photo.author}}</a></h3>
+						{% if photo.caption %}
+							<p class="caption">
+								{{ photo.caption }}
+							</p>
+						{% endif %}
+							<div class="external">
+								<a target="_blank" href="{{photo.link}}">{{i18n.instalink}}</a>
+							</div>
+							<div class="rating">
+								<a class="upghent" data-id="{{photo.ID}}">{{i18n.upvote}}</a>
+								<a class="downghent" data-id="{{photo.ID}}">{{i18n.downvote}}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block javascript %}
+<script>
+var sticky = document.querySelector('.sticky,#pics');
+var origOffsetY = sticky.offsetTop;
+document.addEventListener('scroll', function(e) {
+  window.scrollY >= origOffsetY ? sticky.classList.add('fixed') :
+                                  sticky.classList.remove('fixed')
+});
+</script>
+{% endblock %}

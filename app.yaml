@@ -1,0 +1,43 @@
+application: instaghent
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+- url: /robots\.txt
+  static_files: robots.txt
+  upload: robots\.txt
+- url: /sitemap\.xml
+  static_files: sitemap.xml
+  upload: sitemap\.xml
+- url: /apple-touch-icon\.png
+  static_files: apple-touch-icon.png
+  upload: apple-touch-icon\.png
+- url: /apple-touch-icon\.png
+  static_files: apple-touch-icon.png
+  upload: apple-touch-icon\.png
+- url: /css
+  static_dir: css
+- url: /js
+  static_dir: js
+- url: /img
+  static_dir: img
+
+- url: /tasks/.*
+  script: tasks.app
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.1"
+- name: jinja2
+  version: latest
+
+builtins:
+- remote_api: on

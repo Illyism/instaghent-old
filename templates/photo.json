@@ -1,0 +1,13 @@
+{
+	"photo": {
+		"filter": "{{photo.filters}}",
+		"timestamp": "{{photo.time}}",
+		"ID": "{{photo.ID}}",
+		"location": "{{photo.location}}",
+		"thumb": "{{photo.thumb}}",
+		"low": "{{photo.low}}",
+		"standard": "{{photo.standard}}",
+		"author": "{{photo.author}}",
+		"caption": "{{photo.caption}}",
+	}
+}

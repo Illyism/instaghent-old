@@ -1,0 +1,44 @@
+
+{% extends 'templates/base.html' %}
+{% block title %}{{i18n.about}} | {{i18n.tagline}} | {{i18n.title}}{% endblock %}
+{% block description %}{{title}} - {{i18n.metashort}} - {{i18n.motto}}{% endblock %}
+{% block contentclass %} class="clearfix" {% endblock %}
+{% block outercontent %}
+	<div id="description" class="sticky clearfix fixed">
+		<div class="clearfix navbar">
+			<ul id="sort" class="clearfix">
+				<li class="logo"><a class="logo" href="/">{{i18n.title}}</a></li>
+				{% if sortingMethod == "author" %}
+				<li class="active"><a href="/by/{{author}}" title="{{i18n.sorting.author}}">{{author}}</a></li>
+				{% endif %}
+				<li {% if sortingMethod == 'tag' %}class="active"{% endif %}><a href="/gf13" title="Gentse Feesten 2013">#GF13</a></li>
+				<li {% if sortingMethod == 'time' %}class="active"{% endif %}><a href="/filter/time" title="{{i18n.sorting.sort}} {{i18n.sorting.time}}">{{i18n.sorting.time}}</a></li>
+				<li {% if sortingMethod == 'ghents' %}class="active"{% endif %}><a href="/filter/ghents" title="{{i18n.sorting.sort}} {{i18n.sorting.ghents}}">{{i18n.sorting.ghents}}</a></li>
+				<li {% if sortingMethod == 'comments' %}class="active"{% endif %}><a href="/filter/comments" title="{{i18n.sorting.sort}} {{i18n.sorting.comments}}">{{i18n.sorting.comments}}</a></li>
+				<li {% if sortingMethod == 'likes' %}class="active"{% endif %}><a href="/filter/likes" title="{{i18n.sorting.sort}} {{i18n.sorting.likes}}">{{i18n.sorting.likes}}</a></li>
+				<li><a href="/about" title="{{i18n.about}}">{{i18n.about}} {{i18n.title}}</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
+{% block content %}
+	<div id="pic" class="contain">
+		<div class="left-container">
+			<div class="box">
+				<h1>{{i18n.title}}</h1>
+				<h2>{{i18n.tagline}}</h2>
+			</div>
+			<div class="box">
+				{{i18n.description}}
+			</div>
+		</div>
+		<div class="right-container">
+			<div class="box">
+				<p>{{i18n.disclaimer}}</p>
+			</div>
+			<div class="box footer">
+				<em><a href="http://www.illyism.com">Made By <b>Ilias Ismanalijev</b></a></em><br/>
+			</div>
+		</div>
+	</div>
+{% endblock %}
