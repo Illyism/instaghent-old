@@ -244,7 +244,8 @@ class RealTimeCallback(webapp2.RequestHandler):
     def post(self):
         logging.info(self.request)
         x_hub_signature = self.request.headers.get('X-Hub-Signature')
-        self.response.out.write(instaghent.collectOne())
+        self.response.out.write("ok")
+        #self.response.out.write(instaghent.collectOne())
 
 
 app = webapp2.WSGIApplication([
